@@ -1,0 +1,20 @@
+{
+    "p001":{
+        "name":"Aakriti",
+        "city":"Mumbai",
+        "age":24,
+        "gender":"female",
+        "height":1.65,
+        "weight":47,
+        "verdict":"Normal"
+    },
+    "p002":{
+      "name": "Anukriti",
+      "city": "Mumbai",
+      "age":34,
+      "gender": "female",
+      "height": 1.5,
+      "weight": 93,
+      "verdict": "Obese"
+    }
+}
