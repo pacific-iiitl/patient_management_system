@@ -7,20 +7,22 @@ import json
 app=FastAPI()
 
 class Patient(BaseModel):
-    id:Annotated[str,Field(...,description="This field contains id of the patient",examples={'p001','p002'})]
-    name:Annotated[str, Field(..., description="This field contains name of the patient", examples='Pacific')]
-    city:Annotated[str, Field(..., description="This field contains city of the patient.",default="Varanasi")]
+    id:Annotated[str,Field(...,description="This field contains id of the patient",examples=['p001', 'p002'])]
+    name:Annotated[str, Field(..., description="This field contains name of the patient", examples=['Pacific'])]
+    city:Annotated[str, Field(..., description="This field contains city of the patient.")]
     age:Annotated[int,Field(..., description="It contains age of the patient in years", gt=0, lt=120)]
     gender:Annotated[Literal['male','female','others'], Field(..., description="Gender of the patient!")]
     height:Annotated[float,Field(..., description="Height of the patient in mtrs", gt=0)]
     weight:Annotated[float, Field(..., gt=0, description="Weight of the patient in kgs")]
 
 @computed_field
-def bmi(self,weight,height)-> float:
+@property
+def bmi(self)-> float:
     bmi=round(self.weight/(self.height**2),2)
     return bmi
 
 @computed_field
+@property
 def verdict(self, bmi)-> str:
     if self.bmi<18:
         return "underweight"
@@ -38,7 +40,7 @@ def load_data():
     return data
 
 def save_data(data):
-    with open("patient.json","w")as f:
+    with open("patients.json","w")as f:
         json.dump(data,f)
 
 
@@ -94,7 +96,9 @@ def create_patient(patient:Patient):
     save_data(data)
     return JSONResponse(status_code=201, content={"message":"Patient added Succesfully!"})
 
-
+@app.put("/edit")
+def edit():
+    pass
 
 
     

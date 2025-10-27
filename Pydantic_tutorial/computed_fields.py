@@ -13,7 +13,7 @@ class Patient(BaseModel):
     contact_details:Dict[str,str]
 
     @computed_field
-    # @property
+    @property
     def bmi(self)->float:
         bmi=round(self.weight/(self.height**2),2)
         return bmi
